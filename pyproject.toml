@@ -3,7 +3,7 @@ name = "remembertheworld"
 version = "0.1.0"
 description = "This is a sample Python project for the remembertheworld website"
 readme = "README.md"
-requires-python = ">=3.14"
+requires-python = ">=3.12"
 dependencies = [
     "feedparser>=6.0.12",
     "python-dotenv>=1.2.1",
