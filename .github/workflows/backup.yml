@@ -1,0 +1,35 @@
+name: Substack RSS Backup
+
+on:
+  # schedule:
+  #   - cron: '0 2 * * *' # daily at 02:00 UTC
+  workflow_dispatch: # allows manual triggering
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.14"
+      - name: Setup uv
+        uses: astral-sh/setup-uv@v7
+        with:
+          version: "0.4.15"
+          enable-cache: true
+          cache-dependency-glob: |
+            requirements**.txt
+            pyproject.toml
+      - name: Install Dependencies
+        run: uv sync
+      - name: activate virtual environment
+        run: source .venv/bin/activate
+      - name: Run Substack RSS Backup Script
+        env:
+          SUBSTACK_FEED_URL: ${{ secrets.SUBSTACK_FEED_URL }}
+        run: python scripts/substack_rss_backup.py
