@@ -16,7 +16,8 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v6
         with:
-          python-version: "3.14"
+          python-version: "3.12"
+      
       - name: Setup uv
         uses: astral-sh/setup-uv@v7
         with:
@@ -25,11 +26,11 @@ jobs:
           cache-dependency-glob: |
             requirements**.txt
             pyproject.toml
+      
       - name: Install Dependencies
         run: uv sync
-      - name: activate virtual environment
-        run: source .venv/bin/activate
+      
       - name: Run Substack RSS Backup Script
         env:
           SUBSTACK_FEED_URL: ${{ secrets.SUBSTACK_FEED_URL }}
-        run: python scripts/substack_rss_backup.py
+        run: uv run python scripts/substack_rss_backup.py
