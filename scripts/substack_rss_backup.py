@@ -24,6 +24,7 @@ def main() -> None:
 
     if feed.bozo:
         logging.warning("feedparser reported a problem parsing the feed.")
+        logging.info(f"Bozo exception: {feed.bozo_exception}")
         return None
 
     for entry in feed.entries:
